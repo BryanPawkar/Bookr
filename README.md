@@ -119,8 +119,8 @@ Bookr embodies:
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/bookr.git
-cd bookr
+git clone https://github.com/CapBraco/Bookr.git
+cd Bookr
 ```
 
 ### Step 2: Create Virtual Environment
@@ -768,9 +768,9 @@ SOFTWARE.
 
 ### Getting Help
 
-- **Issues:** [GitHub Issues](https://github.com/yourusername/bookr/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/yourusername/bookr/discussions)
-- **Email:** support@bookr.example.com
+- **Issues:** [GitHub Issues](https://github.com/CapBraco/Bookr/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/CapBraco/bookr/discussions)
+- **Email:** dev@capbraco.com
 
 ### FAQ
 
@@ -822,10 +822,10 @@ A: Yes! Update `DATABASES` in settings.py. PostgreSQL is recommended for product
 ## 👥 Authors & Acknowledgments
 
 ### Core Team
-- **Your Name** - *Initial work* - [YourGitHub](https://github.com/yourusername)
+- **CapBraco** - *Initial work* - [YourGitHub](https://github.com/Capbraco)
 
 ### Contributors
-See the list of [contributors](https://github.com/yourusername/bookr/contributors) who participated in this project.
+See the list of [contributors](https://github.com/CapBraco/Bookr/contributors) who participated in this project.
 
 ### Acknowledgments
 - **Packt Publications** - For educational resources
@@ -865,7 +865,7 @@ See the list of [contributors](https://github.com/yourusername/bookr/contributor
 
 If you find this project useful, please consider giving it a star! ⭐
 
-[![Star History Chart](https://api.star-history.com/svg?repos=yourusername/bookr&type=Date)](https://star-history.com/#yourusername/bookr&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=CapBraco/Bookr&type=Date)](https://star-history.com/#CapBraco/Bookr&Date)
 
 ---
 
