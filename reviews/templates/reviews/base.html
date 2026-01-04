@@ -1,3 +1,89 @@
-{% extends 'base.html' %}
+<!doctype html>
 {% load static %}
-{% block brand %}<img src="{% static 'reviews/logo.png' %}">{% endblock %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>{% block title %}Bookr{% endblock %}</title>
+    
+    <!-- Custom Elegant Styling -->
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+  </head>
+  <body>
+        <nav class="navbar navbar-expand-sm navbar-dark sticky-top">
+          <a class="navbar-brand" href="/">
+            {% block brand %}
+              <span style="font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 300; letter-spacing: 3px; text-transform: uppercase;">BOOKR</span>
+            {% endblock %}
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/books/">Home</a>
+              </li>
+              {% if user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link" href="/accounts/profile">Profile</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/accounts/logout">Logout</a>
+                </li>
+              {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="/accounts/login">Login</a>
+                </li>
+              {% endif %}
+            </ul>
+            <form action="{% url 'book_search' %}" class="form-inline my-2 my-lg-0">
+             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" value="{{ search_text }}" minlength="3">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                Search
+              </button>
+            </form>
+          </div>
+        </nav>
+        
+        <div class="container-fluid">
+          {% for message in messages %}
+            <div class="alert alert-{% if message.level_tag == 'error' %}danger{% else %}{{ message.level_tag }}{% endif %}" role="alert">
+              {{ message }}
+            </div>
+          {% endfor %}
+          
+          {% block content %}
+            <div class="hero-section">
+              <h1>Bookr</h1>
+              <p class="lead">Curated Literature. Timeless Elegance.</p>
+            </div>
+          {% endblock %}
+        </div>
+        
+  <!-- Footer -->
+  <footer class="page-footer">
+    <div class="footer-copyright text-center py-3">
+      <div style="margin-bottom: 0.5rem;">
+        © 2026 <a href="https://www.packtpub.com">CapBraco</a>
+      </div>
+      <div style="font-size: 0.75rem; margin-top: 1rem; opacity: 0.6;">
+        Contact: <a href="mailto:email@example.com">dev@capbraco.com</a>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- Optional JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+{% extends 'reviews/base.html' %}
+
+{% block title %}Bookr{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <h1>Bookr</h1>
+    <p class="lead">Curated Literature. Timeless Elegance.</p>
+    <div class="luxury-divider"></div>
+</div>
+
+{% if viewed_books %}
+<section class="recently-viewed">
+    <h2 class="section-title">Recently Viewed</h2>
+    <div class="book-grid">
+        {% for book in viewed_books %}
+        <div class="card">
+            {% if book.cover %}
+                <img src="{{ book.cover.url }}" alt="{{ book.title }}" class="book-cover">
+            {% else %}
+                <div class="no-cover">
+                    <i class="fa fa-book"></i>
+                </div>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ book.title }}</h5>
+                <p class="card-text">
+                    <span class="text-info">Publisher</span><br>
+                    {{ book.publisher }}<br><br>
+                    <span class="text-info">ISBN</span><br>
+                    {{ book.isbn }}<br><br>
+                    <span class="text-info">Year</span><br>
+                    {{ book.publication_date|date:"Y" }}
+                </p>
+                <a href="{% url 'book_detail' book.pk %}" class="btn btn-primary">View</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% else %}
+<section class="empty-state">
+    <i class="fa fa-book"></i>
+    <h3>Begin Your Journey</h3>
+    <p class="lead">No books viewed yet</p>
+    <div style="margin-top: 2rem;">
+        <a href="{% url 'book_list' %}" class="btn btn-primary">Explore Collection</a>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

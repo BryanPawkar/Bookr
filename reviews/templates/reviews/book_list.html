@@ -1,6 +1,57 @@
-<p>Books read</p>
-<ul>
-  {% for book in books_read %}
-  <li>{{ book }}
-  {% endfor %}
-</ul>
+{% extends 'reviews/base.html' %}
+
+{% block title %}Collection — Bookr{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <h1>Collection</h1>
+    <p class="lead">A Selection of Literary Excellence</p>
+    <div class="luxury-divider"></div>
+</div>
+
+{% if book_list %}
+<div class="book-grid">
+    {% for item in book_list %}
+    <div class="card">
+        {% if item.book.cover %}
+            <img src="{{ item.book.cover.url }}" alt="{{ item.book.title }}" class="book-cover">
+        {% else %}
+            <div class="no-cover">
+                <i class="fa fa-book"></i>
+            </div>
+        {% endif %}
+        <div class="card-body">
+            <h5 class="card-title">{{ item.book.title }}</h5>
+            <p class="card-text">
+                <span class="text-info">Publisher</span><br>
+                {{ item.book.publisher }}<br><br>
+                
+                <span class="text-info">Published</span><br>
+                {{ item.book.publication_date|date:"Y" }}<br><br>
+                
+                {% if item.book_rating %}
+                    <span class="text-info">Rating</span><br>
+                    <span class="badge badge-primary">{{ item.book_rating }}/5</span>
+                    <span class="rating-stars">
+                        {% for i in "12345" %}
+                            {% if forloop.counter <= item.book_rating %}★{% else %}☆{% endif %}
+                        {% endfor %}
+                    </span><br>
+                    <span class="text-muted" style="font-size: 0.8rem;">{{ item.number_of_reviews }} review{{ item.number_of_reviews|pluralize }}</span>
+                {% else %}
+                    <span class="text-muted">No reviews</span>
+                {% endif %}
+            </p>
+            <a href="{% url 'book_detail' item.book.pk %}" class="btn btn-primary">View</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<section class="empty-state">
+    <i class="fa fa-book"></i>
+    <h3>Collection Empty</h3>
+    <p class="lead">No books available at this time</p>
+</section>
+{% endif %}
+{% endblock %}

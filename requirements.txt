@@ -1,1 +1,26 @@
-Django==3.0a1
+# Core Django Framework
+Django>=3.0,<4.0
+
+# Django REST Framework for API
+djangorestframework>=3.12.0
+
+# Image processing for book covers
+Pillow>=8.0.0
+
+# Optional: Better development server
+# Uncomment for production deployment
+# gunicorn>=20.1.0
+
+# Optional: PostgreSQL adapter
+# Uncomment if using PostgreSQL instead of SQLite
+# psycopg2-binary>=2.9.0
+
+# Optional: Environment variable management
+# python-decouple>=3.4
+
+# Optional: Development tools
+# Uncomment for development
+# django-debug-toolbar>=3.2.0
+# flake8>=3.9.0
+# black>=21.5b0
+# coverage>=5.5

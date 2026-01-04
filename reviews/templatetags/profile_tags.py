@@ -3,7 +3,7 @@ from reviews.models import Review
 
 register = template.Library()
 
-@register.inclusion_tag('book_list.html')
+@register.inclusion_tag('reviews/book_list.html')  # Changed from 'book_list.html'
 def book_list(username):
     reviews = Review.objects.filter(creator__username__contains=username)
     book_list = [review.book.title for review in reviews]

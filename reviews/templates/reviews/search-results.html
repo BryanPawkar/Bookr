@@ -2,35 +2,88 @@
 
 {% block title %}
     {% if form.is_valid and form.cleaned_data.search %}
-        Search Results for "{{ form.cleaned_data.search }}"
+        Search — "{{ form.cleaned_data.search }}" — Bookr
     {% else %}
-        Book Search
+        Search — Bookr
     {% endif %}
 {% endblock %}
 
 {% block content %}
-<h2>Search for Books</h2>
-<form method="get" action="{% url 'book_search' %}">
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Search</button>
-</form>
+<div class="container">
+    <div class="hero-section" style="padding: 3rem 0;">
+        <h1 style="font-size: 3rem;">Search</h1>
+        <div class="luxury-divider"></div>
+    </div>
+    
+    <div class="card" style="max-width: 900px; margin: 0 auto 4rem;">
+        <div class="card-body" style="padding: 3rem;">
+            <form method="get" action="{% url 'book_search' %}">
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="id_search">Search Term</label>
+                        {{ form.search }}
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="id_search_in">Search In</label>
+                        {{ form.search_in }}
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label style="opacity: 0;">Search</label>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            Search
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
-{% if form.is_valid and form.cleaned_data.search %}
-<h3>Search Results for <em>{{ form.cleaned_data.search }}</em></h3>
-<ul class="list-group">
-    {% for book in books %}
-    <li class="list-group-item">
-        <span class="text-info">Title: </span> <a href="{% url 'book_detail' book.pk %}">{{ book }}</a>
-        <br/>
-        <span class="text-info">Contributors: </span>
-        {% for contributor in book.contributors.all %}
-            {{ contributor.first_names }} {{ contributor.last_names }}{% if not forloop.last %}, {% endif %}
+    {% if form.is_valid and form.cleaned_data.search %}
+    <h2 class="section-title" style="text-align: center;">
+        Results for "{{ form.cleaned_data.search }}"
+    </h2>
+    
+    {% if books %}
+    <div class="book-grid">
+        {% for book in books %}
+        <div class="card">
+            {% if book.cover %}
+                <img src="{{ book.cover.url }}" alt="{{ book.title }}" class="book-cover">
+            {% else %}
+                <div class="no-cover">
+                    <i class="fa fa-book"></i>
+                </div>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="{% url 'book_detail' book.pk %}">{{ book.title }}</a>
+                </h5>
+                <p class="card-text">
+                    <span class="text-info">ISBN</span><br>
+                    {{ book.isbn }}<br><br>
+                    
+                    <span class="text-info">Contributors</span><br>
+                    {% for contributor in book.contributors.all %}
+                        {{ contributor.first_names }} {{ contributor.last_names }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+                <a href="{% url 'book_detail' book.pk %}" class="btn btn-primary">
+                    View
+                </a>
+            </div>
+        </div>
         {% endfor %}
-    </li>
-    {% empty %}
-        <li class="list-group-item">No results found.</li>
-    {% endfor %}
-</ul>
-{% endif %}
-
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <i class="fa fa-search"></i>
+        <h3>No Results</h3>
+        <p class="lead">No books match "{{ form.cleaned_data.search }}"</p>
+        <div style="margin-top: 2rem;">
+            <a href="{% url 'book_list' %}" class="btn btn-primary">View All Books</a>
+        </div>
+    </div>
+    {% endif %}
+    {% endif %}
+</div>
 {% endblock %}
